@@ -1,5 +1,5 @@
 import express from "express";
-import { isvalidDate } from "./util/isValidDate.js";
+import { isvalidDate } from "./util/isValidDate.js
 const app = express();
 
 app.use("/api/:date?", (req, res) => {
@@ -10,8 +10,8 @@ app.use("/api/:date?", (req, res) => {
     });
   } else if (isvalidDate(req.params.date)) {
     return res.json({
-      unix: req.params.date.getTime(),
-      utc: req.params.date.toUTCString()
+      unix: new Date(req.params.date).getTime(),
+      utc: new Date(req.params.date).toUTCString()
     });
   } else if (typeof +req.params.date === "number") {
     
@@ -21,6 +21,7 @@ app.use("/api/:date?", (req, res) => {
 
     const year = date.getFullYear();
     const date_str = `${year}-${month}-${day}`;
+    
     return res.json({
       unix: +req.params.date,
       utc: new Date(date_str).toUTCString()
