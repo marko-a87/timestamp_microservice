@@ -1,5 +1,5 @@
 import express from "express";
-import { isvalidDate } from "./util/isValidDate.js
+import { isvalidDate } from "./util/isValidDate.js";
 const app = express();
 
 app.use("/api/:date?", (req, res) => {
