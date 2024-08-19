@@ -3,25 +3,24 @@ import { isvalidDate } from "./util/isValidDate.js";
 const app = express();
 
 app.use("/api/:date?", (req, res) => {
+  const date = new Date(req.params.date);
   if (req.params.date === undefined) {
     return res.json({
-      unix: Date.now(),
-      utc: Date.now()
+      unix: new Date().getTime(),
+      utc: new Date().getTime()
     });
   } else if (isvalidDate(req.params.date)) {
     return res.json({
-      unix: new Date(req.params.date).getTime(),
-      utc: new Date(req.params.date).toUTCString()
+      unix: date.getTime(),
+      utc: date.toUTCString()
     });
   } else if (typeof +req.params.date === "number") {
-    
-
     const month = date.getMonth() + 1;
     const day = date.getDate() + 1;
 
     const year = date.getFullYear();
     const date_str = `${year}-${month}-${day}`;
-    
+
     return res.json({
       unix: +req.params.date,
       utc: new Date(date_str).toUTCString()
